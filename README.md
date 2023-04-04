@@ -9,7 +9,7 @@ edit .env file, paste your OPENAI_API_KEY there
 执行 . .env 让环境变量生效.
 
 the default doc is on Buddism, you can chat directly, if you don't want to chat on this, it's easy to make a new index file:
-内置的文档是一个佛法文档，可以直接进行问答。如果你想对此做问答，生成新的索引文档也很容易：
+内置的文档是一个佛法文档，可以直接进行问答。如果你想不想对此做问答，生成新的索引文档也很容易：
 
 copy your docs(txt, editable pdf...) into the folder: input
 把若干文档（纯文本文件、可编辑的pdf）拷贝到 input 目录
