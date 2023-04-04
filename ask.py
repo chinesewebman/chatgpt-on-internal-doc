@@ -1,14 +1,11 @@
 from flask import Flask, render_template, request, json
 from langchain.chat_models import ChatOpenAI
 from llama_index import GPTSimpleVectorIndex, LLMPredictor, PromptHelper
-from llama_index import QuestionAnswerPrompt
+from llama_index import QuestionAnswerPrompt, RefinePrompt
 from llama_index.logger import LlamaLogger
-import sys, logging
 
 app = Flask(__name__)
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 max_input_size = 4096
 num_outputs = 3000
 max_chunk_overlap = 20
@@ -33,6 +30,21 @@ def ask_ai():
 
     QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
 
+    REFINE_PROMPT_TMPL = (
+        "The original question is as follows: {query_str}\n"
+        "We have provided an existing answer: {existing_answer}\n"
+        "We have the opportunity to refine the above answer"
+        "(only if needed) with some more context below.\n"
+        "------------\n"
+        "{context_msg}\n"
+        "------------\n"
+        "Given the new context, refine the original answer to better "
+        "answer to the question in Chinese. "
+        "If the context isn't useful, output the original answer again."
+    )
+
+    REFINE_PROMPT = RefinePrompt(REFINE_PROMPT_TMPL)
+
     chunk_size_limit = int(request.form["chunk_size_limit"])
     response_mode = request.form["response_mode"]
     temperature = float(request.form["temperature"])
@@ -41,7 +53,7 @@ def ask_ai():
     llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=temperature, model_name="gpt-3.5-turbo", max_tokens=num_outputs))
 
     query_string = request.form["query"]
-    response = myindex.query(query_string, text_qa_template=QA_PROMPT, mode='embedding', response_mode=response_mode, llm_predictor=llm_predictor, prompt_helper=prompt_helper, llama_logger=llama_logger, similarity_top_k=similarity_top_k)
+    response = myindex.query(query_string, text_qa_template=QA_PROMPT, refine_template=REFINE_PROMPT, mode='embedding', response_mode=response_mode, llm_predictor=llm_predictor, prompt_helper=prompt_helper, llama_logger=llama_logger, similarity_top_k=similarity_top_k)
     output = {
         "response": str(response),
         "tokens": str(llm_predictor.last_token_usage),
