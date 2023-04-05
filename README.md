@@ -14,9 +14,6 @@ the default doc is on Buddism, you can chat directly, if you don't want to chat 
 copy your docs(txt, editable pdf...) into the folder: input
 把若干文档（纯文本文件、可编辑的pdf）拷贝到 input 目录
 
-edit new-index.py to update your OPENAI_API_KEY
-编辑new-index.py设置好你的OPENAI_API_KEY
-
 python new-index.py
 
 move the generated output file: index.json to the main folder
@@ -26,7 +23,7 @@ move the generated output file: index.json to the main folder
 nohup flask run -h 0.0.0.0 --port 8080 &
 
 open a browser, access http://your-ip-address:8080
-在浏览器里输入 http://your-ip-address:8080
+在浏览器里输入 http://your-ip-address:8080 , 用对外IP 或 http://127.0.0.1:8000 都可以。
 
 ask things around your docs.
 对文档内容进行提问。
