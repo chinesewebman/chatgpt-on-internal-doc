@@ -37,3 +37,5 @@ move mouse over parameter name to see the introduciton of it
 you can adjust the parameters to see the diffrence, check the logger box to see the process step by step. it will be helpful to prepare better doc for QA.
 可以设置各参数来看不同的效果，查看日志记录窗来了解问答的工作步骤，有助于整理出更适合答疑用的文档。
 
+need to run from a openai accessiabe network.
+需要在可以访问到 openai 的网络环境里运行。
