@@ -19,6 +19,8 @@ copy your docs(txt, editable pdf，csv) into the folder: input
 
 python new-index.py
 
+制作索引库时做了部分的预分词处理，就是给中文标点符号和一些专有名字前后加了空格，这是为了避免出现A single term is larger than the allowed chunk size错误的原因，并且有助于专有名词不被错误切分。
+
 the generated file: index.json is the local vector dababase, files in input and output can be removed by any time.
 生成的文件：index.json 就是本地向量索引库了，output目录里是预分词的临时文件，可以随时删除。input目录里的文件也不需要了。
 
@@ -36,6 +38,8 @@ move mouse over parameter name to see the introduciton of it
 
 you can adjust the parameters to see the diffrence, check the logger box to see the process step by step. it will be helpful to prepare better doc for QA.
 可以设置各参数来看不同的效果，查看日志记录窗来了解问答的工作步骤，有助于整理出更适合答疑用的文档。
+
+如果查询时出现ValueError: Got a larger chunk overlap (5) than chunk size (-nnn) 的问题，减少 num_outpt 的值或similarity_top_k、chunk_size_limit 的值。
 
 need to run from a openai accessiabe network.
 需要在可以访问到 openai 的网络环境里运行。
