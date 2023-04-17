@@ -2,6 +2,11 @@
  a QA bot on contents of given docs
 给出文档，可以基于文档进行问答的机器人。
 
+git clone https://github.com/chinesewebman/chatgpt-on-internal-doc.git
+获取源文件
+
+cd chatgpt-on-internal-doc
+
 edit .env file, paste your OPENAI_API_KEY there
 编辑.env 文件，设置好你的OPENAI_API_KEY
 
