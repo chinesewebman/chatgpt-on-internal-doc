@@ -112,19 +112,20 @@
         <h1>AI 答疑测试</h1>
         <form id="settings-form">
             <label for="chunk_size_limit" title="设置匹配到的每一个文本块的最大token数">chunk_size_limit：</label>
-            <input type="number" id="chunk_size_limit" name="chunk_size_limit" value="500">
+            <input type="number" id="chunk_size_limit" name="chunk_size_limit" value="600">
             <br>
-            <label for="response_mode" title="设置响应反馈的模式，compact倾向于简述（选匹配度最高的文本块作为上下文），default倾向于综述（选取多个文本块）">response_mode：</label>
+            <label for="response_mode" title="设置响应反馈的模式，在 similarity_top_k > 1 时有效。compact倾向于尊重原文，default倾向于揉合综述，no_text将不会调用chatgpt，只查看与提问匹配到的上下文有哪些">response_mode：</label>
             <select name="response_mode" id="response">
             <option value="compact">compact</option>
             <option value="default">default</option>
+            <option value="no_text">no_text</option>
             </select>
             <br>
             <label for="temperature" title="设置作答时润色多变性的强度。0为最低，问答场景一般建议设为0">temperature：</label>
             <input type="number" id="temperature" name="temperature" value="0" min="0" max="1" step="0.1">
             <br>
-            <label for="similarity_top_k" title="设置匹配到的上下文文本块最低要有几个">similarity_top_k：</label>
-            <input type="number" id="similarity_top_k" name="similarity_top_k" value="1" min="1" max="3" step="1">
+            <label for="similarity_top_k" title="设置匹配到的上下文文本块最低要有几个（如果不超出llm API 长度限制，一次请求就可以返回结果；超出的话，会分成几次上下文综述问答来获得最终结果，这样响应会比较慢）">similarity_top_k：</label>
+            <input type="number" id="similarity_top_k" name="similarity_top_k" value="3" min="1" max="5" step="1">
         </form>
         <h5>日志信息：</h5>
         <textarea class="debug-output" id="debug-output" readonly></textarea>
