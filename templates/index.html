@@ -112,7 +112,7 @@
         <h1>AI 答疑测试</h1>
         <form id="settings-form">
             <label for="chunk_size_limit" title="设置匹配到的每一个文本块的最大token数">chunk_size_limit：</label>
-            <input type="number" id="chunk_size_limit" name="chunk_size_limit" value="600">
+            <input type="number" id="chunk_size_limit" name="chunk_size_limit" value="600" step="any">
             <br>
             <label for="response_mode" title="设置响应反馈的模式，在 similarity_top_k > 1 时有效。compact倾向于尊重原文，default倾向于揉合综述，no_text将不会调用chatgpt，只查看与提问匹配到的上下文有哪些">response_mode：</label>
             <select name="response_mode" id="response">

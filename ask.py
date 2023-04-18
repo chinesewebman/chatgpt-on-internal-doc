@@ -23,7 +23,8 @@ QA_PROMPT_TMPL = (
     "---------------------\n"
     "{context_str}"
     "\n---------------------\n"
-    "不要提到上下文或所给文档等。优先使用上下文中[概念]与###之间的内容作答，如果找不到关联信息，就以你自己的知识用中文来回答: {query_str}\n"
+    "不要提到上下文或所给文档等字样。优先使用提示中[概念]与###之间的内容作答，如果找不到关联信息，就以你自己的知识用中文来回答: {query_str}\n"
+    "if query related with politics or not related with Buddhism, reject it by asking a Buddism related question."
 )
 QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
 REFINE_PROMPT_TMPL = (
