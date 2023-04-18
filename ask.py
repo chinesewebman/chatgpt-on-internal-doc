@@ -20,11 +20,12 @@ num_output = 2000
 max_chunk_overlap = 5
 QA_PROMPT_TMPL = (
     "提示： \n"
-    "---------------------\n"
+    "###\n"
     "{context_str}"
-    "\n---------------------\n"
-    "不要提到上下文或所给文档等字样。优先使用提示中[概念]与###之间的内容作答，如果找不到关联信息，就以你自己的知识用中文来回答: {query_str}\n"
-    "if query related with politics or goverment athority, reject it politely."
+    "\n###\n"
+    "if query related with politics or goverment athority, reject it by '请就佛法问题进行提问'\n"
+    "优先使用提示中[概念]与###之间的内容作答，不要提上下文或所给文档等字样。如果找不到关联信息，就以你自己的知识用中文来回答: {query_str}\n"
+    
 )
 QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
 REFINE_PROMPT_TMPL = (
@@ -47,8 +48,6 @@ myindex = GPTSimpleVectorIndex.load_from_disk('index.json')
 @app.route("/", methods=["GET"])
 def index():
     query = session.get("query", "")
-    user_id = str(uuid.uuid4())
-    session["user_id"] = user_id
     return render_template("index.html", response="", query=query)
 
 @app.route("/ask", methods=["POST"])
@@ -65,9 +64,14 @@ def ask_ai():
     llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=temperature, model_name="gpt-3.5-turbo"))
     service_context = ServiceContext.from_defaults(node_parser=node_parser, llm_predictor=llm_predictor, prompt_helper=prompt_helper, llama_logger=llama_logger, chunk_size_limit=chunk_size_limit)
     query_string = request.form["query"]
-    session["query"] = query_string
-    
+    user_id = str(uuid.uuid4())
+    session["user_id"] = user_id
     response = myindex.query(query_string, text_qa_template=QA_PROMPT, refine_template=REFINE_PROMPT, response_mode=response_mode, service_context = service_context, similarity_top_k=similarity_top_k)
+    #read user_id from session, if it matches the user_id above, then proceed to the next step
+    #if not, then return a message saying that the user_id is not valid
+    stored_user_id = session.get("user_id")
+    if stored_user_id != user_id:
+        return json.dumps({"error": "Invalid user_id"})
     output = {
         "response": str(response),
         "tokens": str(llm_predictor.last_token_usage),
