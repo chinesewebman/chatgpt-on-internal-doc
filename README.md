@@ -14,15 +14,12 @@ git clone https://github.com/chinesewebman/chatgpt-on-internal-doc.git
 
 cd chatgpt-on-internal-doc
 
-3. edit .env file, paste your OPENAI_API_KEY there
-编辑.env 文件，设置好你的OPENAI_API_KEY
+3. setup your environment variable OPENAI_API_KEY
+设置好你的 OPENAI_API_KEY 环境变量
 
-4. Load the environment variables:　
-让环境变量生效：
+export OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-. .env
-
-5. Install the required packages:　
+4. Install the required packages:　
 安装所需版本的相关软件包：
 
 pip install -r requirements.txt
