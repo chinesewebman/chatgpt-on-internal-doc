@@ -28,8 +28,8 @@ pip install -r requirements.txt
 The default doc is on Buddhism. You can chat directly with the bot by jump to step 3. If you want to use your own documents, follow these steps:
 内置的文档是三个佛法文档，可以直接跳到第3步进行问答。如果你想对自己的文档做问答，按以下两步生成新的索引库也很容易：
 
-1. Copy your documents (txt, editable pdf, csv) into the `input` folder. For Chinese content, make sure to use utf-8 encoding to avoid garbled text.
-把若干文档（纯文本文件、可以选取文字的pdf、从xlsx表格导出的csv文件）拷贝到 input 目录，中文内容的话，注意要以　utf-8　编码导出，避免出现乱码。
+1. Copy your documents (txt, editable pdf, docx、csv) into the `input` folder. For Chinese content, make sure to use utf-8 encoding to avoid garbled text.
+把若干文档（纯文本文件、可以选取文字的pdf、docx、从xlsx表格导出的csv文件）拷贝到 input 目录，中文内容的话，注意要以　utf-8　编码导出，避免出现乱码。
 
 2. Generate a new index file:　生成新的索引文件
 
